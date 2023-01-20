@@ -9,24 +9,27 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      messages: {
+      pokemons: {
         Row: {
-          author: string | null
           created_at: string | null
+          description: string | null
+          fk_user_id: string | null
           id: number
-          message: string | null
+          name: string | null
         }
         Insert: {
-          author?: string | null
           created_at?: string | null
+          description?: string | null
+          fk_user_id?: string | null
           id?: number
-          message?: string | null
+          name?: string | null
         }
         Update: {
-          author?: string | null
           created_at?: string | null
+          description?: string | null
+          fk_user_id?: string | null
           id?: number
-          message?: string | null
+          name?: string | null
         }
       }
     }

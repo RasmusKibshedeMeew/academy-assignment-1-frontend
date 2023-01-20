@@ -22,7 +22,7 @@ import {
 import { peopleOutline, ticketOutline, walletOutline, cameraOutline } from 'ionicons/icons';
 
 import Tab1 from './tabs/tab-1/Tab1';
-import Tab2 from './tabs/tab-2/Tab2';
+import Tab2 from './tabs/profile/Profile';
 import Tab3 from './tabs/tab-3/Tab3';
 import Tab4 from './tabs/tab-4/Tab4';
 import { supabase } from 'apis/supabaseClient';

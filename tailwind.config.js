@@ -11,6 +11,9 @@ module.exports = {
       gridColumn: {
         'span-16': 'span 16 / span 16',
       },
+      backgroundImage: {
+        'pokeball': "url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/512px-Pok%C3%A9_Ball_icon.svg.png?20161023215848')"
+      },
     },
   },
   plugins: [],
