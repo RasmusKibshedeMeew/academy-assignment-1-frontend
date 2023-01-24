@@ -1,10 +1,10 @@
 import React from 'react';
 import { IonContent, IonTitle } from '@ionic/react';
 
-const Tab3: React.FC = () => (
+const Pokemon: React.FC = () => (
   <IonContent color={'white-background'}>
-    <IonTitle>Tab3</IonTitle>
+    <IonTitle>Pokemon</IonTitle>
   </IonContent>
 );
 
-export default Tab3;
+export default Pokemon;

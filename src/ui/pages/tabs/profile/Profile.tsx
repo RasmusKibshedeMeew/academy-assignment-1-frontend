@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+// import React, { useState, useEffect } from 'react';
 import { IonCol, IonContent, IonGrid, IonHeader, IonItem, IonRow, IonTitle, IonToolbar } from '@ionic/react';
-import { supabase } from 'apis/supabaseClient';
-import { Pokemon } from 'types/data-types-import';
+// import { supabase } from 'apis/supabaseClient';
+// import { Pokemon } from 'types/data-types-import';
 import PokemonDisplay from 'ui/components/pokemondisplay/PokemonDisplay';
-import { useAuthUserStore } from 'store/user';
+// import { useAuthUserStore } from 'store/user';
 import { useLoggedInUser } from 'store/loggedInUser';
 
 const Profile: React.FC = () => {
 
-  const userId = useAuthUserStore().authUser?.id;
+  // const userId = useAuthUserStore().authUser?.id;
   const profile = useLoggedInUser();
 
   // const [pokemon, setPokemon] = useState<Pokemon[]>([]);
