@@ -3,29 +3,29 @@ import { IonCol, IonContent, IonGrid, IonHeader, IonItem, IonRow, IonTitle, IonT
 import { supabase } from 'apis/supabaseClient';
 import { Pokemon } from 'types/data-types-import';
 import PokemonDisplay from 'ui/components/pokemondisplay/PokemonDisplay';
+import { useAuthUserStore } from 'store/user';
 
 const Profile: React.FC = () => {
+
+  const userId = useAuthUserStore().authUser?.id;
 
   const [pokemon, setPokemon] = useState<Pokemon[]>([]);
 
   useEffect(() => {
     getPokemon();
-  });
+  }, []);
 
   const getPokemon = async () => {
 
     // const { data, error, status } = await supabase.from('profile').select('*, pokemon(*)');
-    const { data, error, status } = await supabase.from('profile').select('*, pokemon! inner (*)');
-
-    // data?.pokemon
+    const { data, error, status } = await supabase.from('profile').select('*, pokemon! inner (*)').eq('id', userId);
 
     if (data) {
       setPokemon(data![0].pokemon as Pokemon[]);
-      // setPokemon(data);
     }
   };
 
-
+  console.log('TEST');
 
   return (
     <IonContent color={'white-background'} class={'bg-pokeball'}>
@@ -41,11 +41,11 @@ const Profile: React.FC = () => {
           <IonCol className='text-center  font-bold'>Description</IonCol>
         </IonRow>
 
-        {pokemon[0] ? pokemon.map(pokemon => {
+        {pokemon.map(pokemon => {
           return (
             <PokemonDisplay key={pokemon.id} data={pokemon}></PokemonDisplay>
           );
-        }) : ''}
+        })}
       </IonGrid>
     </IonContent>
   );
