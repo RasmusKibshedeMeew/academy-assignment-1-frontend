@@ -4,28 +4,28 @@ import { supabase } from 'apis/supabaseClient';
 import { Pokemon } from 'types/data-types-import';
 import PokemonDisplay from 'ui/components/pokemondisplay/PokemonDisplay';
 import { useAuthUserStore } from 'store/user';
+import { useLoggedInUser } from 'store/loggedInUser';
 
 const Profile: React.FC = () => {
 
   const userId = useAuthUserStore().authUser?.id;
+  const profile = useLoggedInUser();
 
-  const [pokemon, setPokemon] = useState<Pokemon[]>([]);
+  // const [pokemon, setPokemon] = useState<Pokemon[]>([]);
 
-  useEffect(() => {
-    getPokemon();
-  }, []);
+  // useEffect(() => {
+  //   getPokemon();
+  // }, []);
 
-  const getPokemon = async () => {
+  // const getPokemon = async () => {
 
-    // const { data, error, status } = await supabase.from('profile').select('*, pokemon(*)');
-    const { data, error, status } = await supabase.from('profile').select('*, pokemon! inner (*)').eq('id', userId);
+  //   // const { data, error, status } = await supabase.from('profile').select('*, pokemon(*)');
+  //   const { data, error, status } = await supabase.from('profile').select('*, pokemon! inner (*)').eq('id', userId);
 
-    if (data) {
-      setPokemon(data![0].pokemon as Pokemon[]);
-    }
-  };
-
-  console.log('TEST');
+  //   if (data) {
+  //     setPokemon(data![0].pokemon as Pokemon[]);
+  //   }
+  // };
 
   return (
     <IonContent color={'white-background'} class={'bg-pokeball'}>
@@ -41,7 +41,7 @@ const Profile: React.FC = () => {
           <IonCol className='text-center  font-bold'>Description</IonCol>
         </IonRow>
 
-        {pokemon.map(pokemon => {
+        {profile.pokemon.map(pokemon => {
           return (
             <PokemonDisplay key={pokemon.id} data={pokemon}></PokemonDisplay>
           );

@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { IonButton, IonIcon, IonInput, IonItem, IonText, useIonRouter, useIonLoading, useIonAlert } from '@ionic/react';
 import { at, eyeOffOutline, eyeOutline, lockClosedOutline } from 'ionicons/icons';
 import { useAuthUserStore } from 'store/user';
+import { useLoggedInUser } from 'store/loggedInUser';
 import { supabase } from 'apis/supabaseClient';
 import SocialLoginButton from '../social-login-buttons/SocialLoginButton';
 import { Provider } from '@supabase/supabase-js';
 import Separator from 'ui/components/generic/Separator';
 import { t } from 'i18next';
+import { Pokemon } from 'types/data-types-import';
 
 type LoginFormProps = {
   togglePasswordButtonType?: 'text' | 'icon' | 'none';
@@ -23,6 +25,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ togglePasswordButtonType = 'icon'
   const [presentAlert] = useIonAlert();
 
   const setAuthUser = useAuthUserStore((state) => state.setAuthUser);
+  const setLoggedinUser = useLoggedInUser((state) => state.setLoggedInUser);
 
   useEffect(() => {
     setIsSubmitDisabled(!(email.includes('@') && password !== ''));
@@ -37,6 +40,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ togglePasswordButtonType = 'icon'
 
     if (data.user && data.user.aud === 'authenticated') {
       setAuthUser(data.user);
+      console.log('Gets here');
+
+
+      fetchProfile(data.user.id);
+
+
+
       await dismiss();
       router.push('/home');
     } else {
@@ -48,6 +58,16 @@ const LoginForm: React.FC<LoginFormProps> = ({ togglePasswordButtonType = 'icon'
       });
     }
   };
+
+  async function fetchProfile(id: string) {
+    const { data, error, status } = await supabase.from('profile').select('*, pokemon! inner (*)').eq('id', id);
+
+
+    if (data) {
+      setLoggedinUser(data[0], data[0].pokemon as Pokemon);
+    }
+
+  }
 
   const signInWithThirdParty = async (variant: Provider) => {
     await present({ message: t('authentication.redirecting') });
