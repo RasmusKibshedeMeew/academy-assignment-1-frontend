@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/react';
+import { IonCol, IonContent, IonGrid, IonHeader, IonItem, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import { supabase } from 'apis/supabaseClient';
 import { Pokemon } from 'types/data-types-import';
 import PokemonDisplay from 'ui/components/pokemondisplay/PokemonDisplay';
@@ -31,15 +31,22 @@ const Profile: React.FC = () => {
     <IonContent color={'white-background'} class={'bg-pokeball'}>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>profile</IonTitle>
+          <IonTitle>Profile</IonTitle>
         </IonToolbar>
       </IonHeader>
 
-      {pokemon[0] ? pokemon.map(pokemon => {
-        return (
-          <PokemonDisplay key={pokemon.id} data={pokemon}></PokemonDisplay>
-        );
-      }) : ''}
+      <IonGrid>
+        <IonRow class='bg-gray-200 flex'>
+          <IonCol className='text-center font-bold'>Name</IonCol>
+          <IonCol className='text-center  font-bold'>Description</IonCol>
+        </IonRow>
+
+        {pokemon[0] ? pokemon.map(pokemon => {
+          return (
+            <PokemonDisplay key={pokemon.id} data={pokemon}></PokemonDisplay>
+          );
+        }) : ''}
+      </IonGrid>
     </IonContent>
   );
 };

@@ -19,14 +19,16 @@ import {
   IonButton,
   useIonRouter,
 } from '@ionic/react';
-import { peopleOutline, ticketOutline, walletOutline, cameraOutline } from 'ionicons/icons';
+import { peopleOutline, ticketOutline, walletOutline, cameraOutline, homeOutline } from 'ionicons/icons';
 
-import Tab1 from './tabs/tab-1/Tab1';
-import Tab2 from './tabs/profile/Profile';
+// import Tab2 from './tabs/profile/Profile';
 import Tab3 from './tabs/tab-3/Tab3';
 import Tab4 from './tabs/tab-4/Tab4';
 import { supabase } from 'apis/supabaseClient';
 import { useAuthUserStore } from 'store/user';
+import Profile from './tabs/profile/Profile';
+import Home from './tabs/Home/Home';
+import HomeW from './tabs/Home/Home';
 
 const HomePage: React.FC = () => {
   const router = useIonRouter();
@@ -88,17 +90,17 @@ export default HomePage;
 
 const pages = [
   {
-    name: 'photo',
-    icon: cameraOutline,
-    path: '/tab1',
-    component: Tab1,
+    name: 'homeW',
+    icon: homeOutline,
+    path: '/homeW',
+    component: HomeW,
     redirect: true,
   },
   {
-    name: 'people',
+    name: 'profile',
     icon: peopleOutline,
-    path: '/tab2',
-    component: Tab2,
+    path: '/profile',
+    component: Profile,
     redirect: false,
   },
   {

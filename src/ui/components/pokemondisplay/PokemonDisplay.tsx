@@ -1,4 +1,4 @@
-import { IonItem, IonLabel } from '@ionic/react';
+import { IonCol, IonItem, IonLabel, IonRow } from '@ionic/react';
 import { Pokemon } from 'types/data-types-import';
 
 type PokemonDisplayProps = {
@@ -7,10 +7,10 @@ type PokemonDisplayProps = {
 
 const PokemonDisplay: React.FC<PokemonDisplayProps> = ({ data }) => {
     return (
-        <IonItem key={data.id}>
-            <IonLabel>{data.name}</IonLabel>
-            <IonLabel>{data.description}</IonLabel>
-        </IonItem>
+        <IonRow key={data.id}>
+            <IonCol className='text-center'>{data.name}</IonCol>
+            <IonCol className='text-center'>{data.description}</IonCol>
+        </IonRow>
     );
 };
 
