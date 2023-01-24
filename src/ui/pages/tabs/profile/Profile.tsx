@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { IonContent, IonHeader, IonItem, IonLabel, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/react';
 import { supabase } from 'apis/supabaseClient';
-import { Pokemons } from 'types/data-types-import';
+import { Pokemon } from 'types/data-types-import';
+import PokemonDisplay from 'ui/components/pokemondisplay/PokemonDisplay';
 
 const Profile: React.FC = () => {
 
-  const [pokemon, setPokemon] = useState<Pokemons[]>([]);
+  const [pokemon, setPokemon] = useState<Pokemon[]>([]);
 
   useEffect(() => {
     getPokemon();
@@ -13,13 +14,17 @@ const Profile: React.FC = () => {
 
   const getPokemon = async () => {
 
-    const { data, error, status } = await supabase.from('pokemons').select('*').eq('fk_user_id', '1b1f426b-39c4-4eef-86c3-ecc2fdf03266');
+    // const { data, error, status } = await supabase.from('profile').select('*, pokemon(*)');
+    const { data, error, status } = await supabase.from('profile').select('*, pokemon! inner (*)');
+
+    // data?.pokemon
 
     if (data) {
-
-      setPokemon(data);
+      setPokemon(data![0].pokemon as Pokemon[]);
+      // setPokemon(data);
     }
   };
+
 
 
   return (
@@ -30,16 +35,9 @@ const Profile: React.FC = () => {
         </IonToolbar>
       </IonHeader>
 
-      {/* <IonLabel>{pokemon ? pokemon.name : ''}</IonLabel>
-      <br />
-      <IonLabel>{pokemon ? pokemon.description : ''}</IonLabel> */}
-
       {pokemon[0] ? pokemon.map(pokemon => {
         return (
-          <IonItem key={pokemon.id}>
-            <IonLabel>{pokemon.name}</IonLabel>
-            <IonLabel>{pokemon.description}</IonLabel>
-          </IonItem>
+          <PokemonDisplay key={pokemon.id} data={pokemon}></PokemonDisplay>
         );
       }) : ''}
     </IonContent>
