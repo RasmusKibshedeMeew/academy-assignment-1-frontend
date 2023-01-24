@@ -5,7 +5,7 @@ import { persist } from 'zustand/middleware';
 type LoggedInUser = {
     user: Profile | null;
     pokemon: Pokemon[] | []
-    setLoggedInUser: (user: Profile, pokemon: Pokemon) => void;
+    setLoggedInUser: (user: Profile, pokemon: Pokemon[]) => void;
     resetLoggedInUser: () => void;
 }
 
@@ -14,7 +14,7 @@ export const useLoggedInUser = create<LoggedInUser>()(
         (set) => ({
             user: null,
             pokemon: [],
-            setLoggedInUser: (user, pokemon) => set({ user: user, pokemon: [] }),
+            setLoggedInUser: (user, pokemon) => set({ user, pokemon }),
             resetLoggedInUser: () => set({ user: null, pokemon: [] }),
         }),
         {

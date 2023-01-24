@@ -40,13 +40,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ togglePasswordButtonType = 'icon'
 
     if (data.user && data.user.aud === 'authenticated') {
       setAuthUser(data.user);
-      console.log('Gets here');
-
-
       fetchProfile(data.user.id);
-
-
-
       await dismiss();
       router.push('/home');
     } else {
@@ -64,7 +58,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ togglePasswordButtonType = 'icon'
 
 
     if (data) {
-      setLoggedinUser(data[0], data[0].pokemon as Pokemon);
+      setLoggedinUser(data[0], data[0].pokemon as Pokemon[]);
     }
 
   }
