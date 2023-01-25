@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { IonContent, IonTitle } from '@ionic/react';
+import { IonContent, IonTitle, useIonToast } from '@ionic/react';
 import { Button, Divider, List, Typography } from 'antd';
 import { Pokemon } from 'types/data-types-import';
 import { supabase } from 'apis/supabaseClient';
@@ -36,10 +36,23 @@ const PokemonPage: React.FC = () => {
 
       if (data) {
         setLoggedInUser(data[0], data[0].pokemon as Pokemon[]);
+        presentToast('top', 'Pokemon added', 'success');
+      } else {
+        presentToast('top', 'Error ' + error.message, 'danger');
       }
     }
   }
 
+  const [present] = useIonToast();
+
+  const presentToast = (position: 'top' | 'middle' | 'bottom', message: string, color: string) => {
+    present({
+      message: message,
+      duration: 3000,
+      position: position,
+      color: color
+    });
+  };
 
   function colorPicker(data: Pokemon) {
     if (data.description.includes('fire')) {
@@ -48,6 +61,8 @@ const PokemonPage: React.FC = () => {
       return 'bg-blue-400';
     } else if (data.description.includes('electric')) {
       return 'bg-yellow-400';
+    } else if (data.description.includes('grass')) {
+      return 'bg-green-400';
     } else {
       return 'bg-gray-400';
     }
