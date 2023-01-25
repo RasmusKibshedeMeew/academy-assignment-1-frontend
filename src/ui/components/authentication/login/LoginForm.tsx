@@ -54,10 +54,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ togglePasswordButtonType = 'icon'
   };
 
   async function fetchProfile(id: string) {
-    const { data, error, status } = await supabase.from('profile').select('*, pokemon! inner (*)').eq('id', id);
-
+    const { data, error, status } = await supabase.from('profile').select('*, pokemon(*)');
+    console.log(data);
 
     if (data) {
+      
+      
       setLoggedinUser(data[0], data[0].pokemon as Pokemon[]);
     }
 

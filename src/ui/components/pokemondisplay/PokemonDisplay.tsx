@@ -9,11 +9,13 @@ const PokemonDisplay: React.FC<PokemonDisplayProps> = ({ data }) => {
 
     function colorPicker() {
         if (data.description.includes('fire')) {
-            return 'bg-red-500';
+            return 'bg-red-400';
         } else if (data.description.includes('water')) {
-            return 'bg-blue-500';
+            return 'bg-blue-400';
+        } else if (data.description.includes('electric')) {
+            return 'bg-yellow-400';
         } else {
-            return 'bg-gray-500';
+            return 'bg-gray-400';
         }
     }
 

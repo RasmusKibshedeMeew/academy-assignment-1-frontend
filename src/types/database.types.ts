@@ -68,16 +68,16 @@ export interface Database {
       }
       pokemon_profiles_profile: {
         Row: {
-          pokemonId: string
-          profileId: string
+          pokemon_id: string
+          profile_id: string
         }
         Insert: {
-          pokemonId: string
-          profileId: string
+          pokemon_id: string
+          profile_id: string
         }
         Update: {
-          pokemonId?: string
-          profileId?: string
+          pokemon_id?: string
+          profile_id?: string
         }
       }
       product_description: {
