@@ -26,6 +26,7 @@ import Tab3 from './tabs/PokemonPage/PokemonPage';
 import Tab4 from './tabs/tab-4/Tab4';
 import { supabase } from 'apis/supabaseClient';
 import { useAuthUserStore } from 'store/user';
+import { useLoggedInUser } from 'store/loggedInUser';
 import Profile from './tabs/profile/Profile';
 import Home from './tabs/Home/Home';
 import HomeW from './tabs/Home/Home';
@@ -34,6 +35,7 @@ const HomePage: React.FC = () => {
   const router = useIonRouter();
   const authUser = useAuthUserStore((state) => state.authUser);
   const resetAuthUser = useAuthUserStore((state) => state.resetAuthUser);
+  const resetLoggedInUser = useLoggedInUser((state) => state.resetLoggedInUser);
 
   useEffect(() => {
     if (!authUser) router.push('/login');
@@ -41,6 +43,7 @@ const HomePage: React.FC = () => {
 
   const handleLogOut = async () => {
     resetAuthUser();
+    resetLoggedInUser();
     await supabase.auth.signOut();
     router.push('/login');
   };
